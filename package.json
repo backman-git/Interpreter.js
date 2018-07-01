@@ -1,0 +1,11 @@
+{
+  "name": "@bx/interpreter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "genParser.js",
+  "scripts": {
+    "test": "jison genParser.bison"
+  },
+  "author": "backman",
+  "license": "ISC"
+}
