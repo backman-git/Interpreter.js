@@ -1,0 +1,11 @@
+{
+  "name": "ast",
+  "version": "1.0.0",
+  "description": "abstract syntax tree",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "backman",
+  "license": "ISC"
+}
