@@ -15,7 +15,12 @@ function OpNode(value,left,right){
 };
 
 // number
+NumNode.prototype = new Node();
+NumNode.prototype.constructor = NumNode();
 function NumNode(value){
     this.value = value;
 };
 
+
+
+export{OpNode,NumNode};
