@@ -1,4 +1,12 @@
 
+
+
+%{
+    import {NumNode,OpNode} from "@bx/ast";
+
+
+%}
+
 %lex
 
 %%
@@ -31,17 +39,17 @@ expressions
     ;
 
 e
-    : e '+' e
-        {$$ = $1+$3;}
+    : e '+' e 
+        {$$ = new OpNode("+",$1,$3);}
     | e '-' e
-        {$$ = $1-$3;}
+        {$$ = new OpNode("-",$1,$3);}
     | e '*' e
-        {$$ = $1*$3;}
+        {$$ = new OpNode("*",$1,$3);}
     | e '/' e
-        {$$ = $1/$3;}
+        {$$ = new OpNode("/",$1,$3);}
     | '(' e ')'
         {$$=$2;}
     | NUMBER
-        {$$ = Number(yytext);}
+        {$$ = new NumNode( Number(yytext));}
     ;
 

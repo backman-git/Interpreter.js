@@ -5,11 +5,13 @@
   "main": "genParser.js",
   "scripts": {
     "build": "jison genParser.bison",
-    "dev":"babel-node genParser.js testFile"
+    "dev": "babel-node genParser.js testFile"
   },
   "author": "backman",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@bx/ast": "file:AST"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
