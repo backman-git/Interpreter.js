@@ -21,6 +21,4 @@ function NumNode(value){
     this.value = value;
 };
 
-
-
 export{OpNode,NumNode};
