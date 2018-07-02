@@ -5,7 +5,7 @@
   "main": "genParser.js",
   "scripts": {
     "build": "jison genParser.bison",
-    "dev": "babel-node genParser.js testFile"
+    "dev": "babel-node genParser.js inputFile"
   },
   "author": "backman",
   "license": "ISC",

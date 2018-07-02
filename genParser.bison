@@ -1,10 +1,5 @@
-
-
-
 %{
-    import {NumNode,OpNode} from "@bx/ast";
-
-
+    import {NumNode,OpNode,Node} from "@bx/ast";
 %}
 
 %lex
@@ -34,8 +29,10 @@
 
 expressions
     : e EOF
-        { typeof console !== 'undefined' ? console.log($1) : print($1);
-          return $1; }
+        {   
+            Node.genGraph($1);
+            return $1;
+        }
     ;
 
 e
