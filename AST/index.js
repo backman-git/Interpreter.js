@@ -5,6 +5,7 @@ class Node{
         this.left=null;
         this.right=null;
         this.value=null;
+        this.token=null;
     }
 
     static genGraph(root){
@@ -12,7 +13,7 @@ class Node{
 
         this.dfs(root,1,(node,idx)=>{
             var symbolIdx = "n"+idx; 
-            graph+=symbolIdx+" [label=\""+node.value+"\"];\n";
+            graph+=symbolIdx+" [label=\""+node.token+"\"];\n";
 
             if(node.left !==null){
                 var leftSymbolIdx = "n"+(2*idx);
@@ -47,8 +48,9 @@ class Node{
 // op
 OpNode.prototype = new Node();
 OpNode.prototype.constructor = OpNode;
-function OpNode(value,left,right){
-    this.value=value;
+
+function OpNode(token,left,right){
+    this.token=token;
     this.left=left;
     this.right=right;
 };
@@ -56,8 +58,34 @@ function OpNode(value,left,right){
 // number
 NumNode.prototype = new Node();
 NumNode.prototype.constructor = NumNode;
-function NumNode(value){
-    this.value = value;
+function NumNode(token){
+    this.token = token;
+    this.value = token;
 };
 
-export{OpNode,NumNode,Node};
+
+class VarNode extends Node {
+
+    constructor(token){
+        super();
+        this.token = token;
+    }
+
+};
+
+class AssignNode extends Node{
+
+    constructor(left,right){
+        super();
+        this.token='=';
+        this.left=left;
+        this.right=right;
+    }
+
+
+};
+
+
+
+
+export{Node,OpNode,NumNode,VarNode,AssignNode};
