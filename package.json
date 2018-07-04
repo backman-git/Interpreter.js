@@ -1,11 +1,19 @@
 {
-  "name": "@bx/interpreter",
+  "name": "interpreter",
   "version": "1.0.0",
-  "description": "",
+  "description": "interpreter",
   "main": "genParser.js",
   "scripts": {
-    "test": "jison genParser.bison"
+    "build": "jison genParser.bison",
+    "dev": "babel-node genParser.js testFile"
   },
   "author": "backman",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
+  }
 }
