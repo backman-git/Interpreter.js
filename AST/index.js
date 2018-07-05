@@ -85,7 +85,32 @@ class AssignNode extends Node{
 
 };
 
+class ProgramNode extends Node{
+
+    constructor(stmtNode){
+        super();
+        this.token="Program";
+        this.left = stmtNode;
+    }
+    addStmt(stmtNode){
+        stmtNode.left=this.left;
+        this.left=stmtNode;
+    }
+};
+
+class StmtNode extends Node{
+    
+    constructor(expNode){
+        super();
+        this.token="Statement";
+        this.left=null;
+        this.right=expNode;
+
+    }
+
+};
 
 
 
-export{Node,OpNode,NumNode,VarNode,AssignNode};
+
+export{Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode};
