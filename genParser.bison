@@ -4,7 +4,14 @@
 %lex
 
 %%
+
+
 \s+                   /* skip whitespace */
+//keywords
+"function"            return 'FUNCTION'
+
+
+//
 [0-9]+                return 'NUMBER'
 "*"                   return '*'
 "/"                   return '/'
@@ -16,10 +23,15 @@
 "if"                  return "IF"
 ">"                   return '>'
 "<"                   return '<'
+[a-zA-Z_][a-zA-Z_0-9]*  return 'NAME'
 \$[a-zA-Z_][a-zA-Z_0-9]*     return 'VARIABLE'
 "="                   return '='
 "{"                   return '{'
 "}"                   return '}'
+
+
+
+
 
 
 <<EOF>>               return 'EOF'
@@ -58,8 +70,32 @@ top_statement
 
 statement
     : expr ';'          {}
+    | function_statement   {}
     | '{' inner_statement_list '}'    {}
     ;
+
+
+function_statement
+    : FUNCTION NAME '(' parameter_list  ')' compound_statement
+    ;
+
+
+
+parameter_list
+    :    {}
+    |  parameter   {}
+    |  parameter_list ',' parameter  {}
+    ;
+
+parameter
+    :VARIABLE   {}
+    ;
+
+compound_statement
+    : '{' inner_statement_list '}'   {}
+    ;
+
+
 
 inner_statement_list
     : inner_statement_list inner_statement  {}
