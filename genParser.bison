@@ -86,7 +86,7 @@ statement
 
 
 function_statement
-    : FUNCTION NAME '(' parameter_list  ')' '{' inner_statement_list '}' {}
+    : FUNCTION NAME '(' parameter_list  ')' compound_statement
     ;
 
 
@@ -99,6 +99,10 @@ parameter_list
 
 parameter
     :VARIABLE   {}
+    ;
+
+compound_statement
+    : '{' inner_statement_list '}'   {}
     ;
 
 
