@@ -5,9 +5,17 @@
 %lex
 
 %%
+
+
 \s+                   /* skip whitespace */
+//keywords
+"function"            return 'FUNCTION'
+
+
+//
 [0-9]+                return 'NUMBER'
 \$[a-zA-Z_][a-zA-Z_0-9]*     return 'VARIABLE'
+[a-zA-Z_][a-zA-Z_0-9]*  return 'NAME'
 "*"                   return '*'
 "/"                   return '/'
 "-"                   return '-'
@@ -21,6 +29,10 @@
 "="                   return '='
 "{"                   return '{'
 "}"                   return '}'
+
+
+
+
 
 
 <<EOF>>               return 'EOF'
@@ -68,8 +80,28 @@ top_statement
 
 statement
     : expr ';'     { $$ = new StmtNode($1);    }
+    | function_statement   {}
     | '{' inner_statement_list '}'    {}
     ;
+
+
+function_statement
+    : FUNCTION NAME '(' parameter_list  ')' '{' inner_statement_list '}' {}
+    ;
+
+
+
+parameter_list
+    :    {}
+    |  parameter   {}
+    |  parameter_list ',' parameter  {}
+    ;
+
+parameter
+    :VARIABLE   {}
+    ;
+
+
 
 inner_statement_list
     : inner_statement_list inner_statement  {}
