@@ -4,7 +4,7 @@
   "description": "interpreter",
   "main": "genParser.js",
   "scripts": {
-    "build": "jison genParser.bison && gsed -i '1 i import {Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode} from \"@bx/ast\"; ' genParser.js",
+    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode} from \"@bx/ast\"; ' genParser.js",
     "dev": "babel-node genParser.js inputFile"
   },
   "author": "backman",

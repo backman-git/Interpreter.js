@@ -29,6 +29,7 @@
 "="                   return '='
 "{"                   return '{'
 "}"                   return '}'
+","                   return ','
 
 
 
@@ -80,36 +81,45 @@ top_statement
 
 statement
     : expr ';'     { $$ = new StmtNode($1);    }
-    | function_statement   {}
-    | '{' inner_statement_list '}'    {}
+    | function_statement   {$$=new StmtNode($1);}
+    | '{' inner_statement_list '}'    {$$ = new StmtNode($2);}
     ;
 
 
 function_statement
     : FUNCTION NAME '(' parameter_list  ')' compound_statement
+        {$$ = new FunctNode($2,$4,$6);}
     ;
 
 
 
 parameter_list
-    :    {}
-    |  parameter   {}
-    |  parameter_list ',' parameter  {}
+    :  parameter   {$$= new ParaListNode($1);}
+    |  parameter_list ',' parameter 
+        {
+            $1.addPara($3);
+            $$=$1;
+        }
     ;
 
 parameter
-    :VARIABLE   {}
+    :VARIABLE   {$$ = new PNode($1);}
+    | {$$ = new PNode("");}
     ;
 
 compound_statement
-    : '{' inner_statement_list '}'   {}
+    : '{' inner_statement_list '}'   {$$=$2;}
     ;
 
 
 
 inner_statement_list
-    : inner_statement_list inner_statement  {}
-    |
+    : inner_statement_list inner_statement  
+        {  
+            ($1).addStmt($2);
+            $$ = $1;
+        }
+    | inner_statement  {$$= new CompoundStmtNode($1);}
     ;
 
 inner_statement

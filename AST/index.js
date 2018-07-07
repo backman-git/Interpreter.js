@@ -10,7 +10,7 @@ class Node{
 
     static genGraph(root){
         var graph ="digraph AST{ \n";
-
+        
         this.dfs(root,1,(node,idx)=>{
             var symbolIdx = "n"+idx; 
             graph+=symbolIdx+" [label=\""+node.token+"\"];\n";
@@ -43,7 +43,7 @@ class Node{
         this.dfs(node.left,2*idx,fn);
         this.dfs(node.right,2*idx+1,fn);
     }
-};
+}
 
 // op
 OpNode.prototype = new Node();
@@ -53,7 +53,7 @@ function OpNode(token,left,right){
     this.token=token;
     this.left=left;
     this.right=right;
-};
+}
 
 // number
 NumNode.prototype = new Node();
@@ -61,7 +61,17 @@ NumNode.prototype.constructor = NumNode;
 function NumNode(token){
     this.token = token;
     this.value = token;
-};
+}
+
+
+class IDNode extends Node{
+
+    constructor(token){
+        super();
+        this.token = token;
+    }
+}
+
 
 
 class VarNode extends Node {
@@ -71,7 +81,7 @@ class VarNode extends Node {
         this.token = token;
     }
 
-};
+}
 
 class AssignNode extends Node{
 
@@ -83,7 +93,7 @@ class AssignNode extends Node{
     }
 
 
-};
+}
 
 class ProgramNode extends Node{
 
@@ -96,7 +106,7 @@ class ProgramNode extends Node{
         stmtNode.left=this.left;
         this.left=stmtNode;
     }
-};
+}
 
 class StmtNode extends Node{
     
@@ -107,10 +117,57 @@ class StmtNode extends Node{
         this.right=expNode;
 
     }
+}
 
-};
+class FunctNode extends Node{
+
+    constructor(fName,argumentList,stmtNode){
+        super();
+        this.token="Funct: "+fName;
+        this.left=argumentList;
+        this.right=stmtNode;
+    }
+
+
+}
+
+class CompoundStmtNode extends Node{
+    constructor(stmtNode){
+        super();
+        this.token="CompoundStatement";
+        this.left = stmtNode;
+    }
+    
+    addStmt(stmtNode){
+        stmtNode.left=this.left;
+        this.left=stmtNode;
+    }
+
+}
+
+class ParaListNode extends Node {
+
+    constructor(pNode){
+        super();
+        this.token="ParaList"
+        this.left=pNode;
+    }
+
+    addPara(pNode){
+        pNode.left=this.left;
+        this.left=pNode;
+    }
+
+}
+
+class PNode extends Node{
+    constructor(token){
+        super();
+        this.token=token;
+    }
+}
 
 
 
 
-export{Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode};
+export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode};
