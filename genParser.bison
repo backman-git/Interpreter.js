@@ -10,7 +10,9 @@
 \s+                   /* skip whitespace */
 //keywords
 "function"            return 'FUNCTION'
-
+"return"              return 'RETURN'
+"if"                  return "IF"
+"else"                return "ELSE"
 
 //
 [0-9]+                return 'NUMBER'
@@ -23,7 +25,6 @@
 "("                   return  '('
 ")"                   return  ')'
 ";"                   return  ';'
-"if"                  return "IF"
 ">"                   return '>'
 "<"                   return '<'
 "="                   return '='
@@ -89,6 +90,10 @@ statement
  //   | function_statement    {} 
     ;
 
+if_else_statement
+    :IF '(' expr ')' compound_statement ELSE compound_statement 
+        {$$ = new IfElseNode($3,new SepExpNode($5,$7) );}
+    ;
 
 function_statement
     : FUNCTION NAME '(' parameter_list  ')' compound_statement

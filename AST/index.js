@@ -177,6 +177,28 @@ class StmtNode extends Node{
     }
 }
 
+class IfElseNode extends Node{
+
+    constructor(expNode,sepExpNode){
+        super();
+        this.token = "IfElse";
+        this.left = expNode;
+        this.right =sepExpNode;
+    }
+
+}
+
+class SepExpNode extends Node{
+
+    constructor(ifExpNode,elseExpNode){
+        super();
+        this.token = "SepExpNode";
+        this.left = ifExpNode;
+        this.right = elseExpNode;
+    }
+}
+
+
 class FunctNode extends Node{
 
     constructor(fName,paraList,stmtNode){
@@ -265,4 +287,9 @@ class ReturnNode extends Node{
 
 }
 
+<<<<<<< HEAD
 export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode};
+=======
+
+export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode};
+>>>>>>> 0a0549b... if_else_stmt node
