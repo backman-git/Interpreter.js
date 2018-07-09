@@ -9,7 +9,7 @@
 \s+                   /* skip whitespace */
 //keywords
 "function"            return 'FUNCTION'
-
+"return"              return 'RETURN'
 
 //
 [0-9]+                return 'NUMBER'
@@ -21,6 +21,7 @@
 ")"                   return  ')'
 ";"                   return  ';'
 "if"                  return "IF"
+"else"                return "ELSE"
 ">"                   return '>'
 "<"                   return '<'
 [a-zA-Z_][a-zA-Z_0-9]*  return 'NAME'
@@ -45,7 +46,7 @@
 %left '>' '<'
 %left '+' '-'
 %left '*' '/'
-
+%right 'RETURN'
 
 
 
@@ -70,17 +71,30 @@ top_statement
 
 statement
     : expr ';'          {}
-    | function_statement   {}
+    | function_declare_statement   {}
     | '{' inner_statement_list '}'    {}
+    | if_else_statement  {}
+ //   | function_statement    {} 
     ;
 
 
-function_statement
+if_else_statement
+    :IF '(' expr ')' compound_statement ELSE compound_statement {}
+    ;
+
+
+
+
+
+
+function_declare_statement
     : FUNCTION NAME '(' parameter_list  ')' compound_statement
     ;
-
-
-
+/*
+function_statement   
+    : NAME '(' parameter_list  ')'
+    ;
+*/
 parameter_list
     :    {}
     |  parameter   {}
@@ -110,7 +124,7 @@ inner_statement
 expr
     : VARIABLE '=' expr  
         {} 
-    | IF '(' expr ')' statement    
+    | NAME '(' parameter_list  ')' 
         {}
     | expr '+' expr
         {}
@@ -125,6 +139,8 @@ expr
     | expr '<' expr
         {}
     | '(' expr ')'
+        {}
+    | RETURN expr
         {}
     | NUMBER
         {}
