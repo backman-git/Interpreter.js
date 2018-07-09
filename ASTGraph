@@ -1,0 +1,29 @@
+digraph AST{ 
+n1 [label="Program"];
+n1 -> n2;
+n2 [label="IfElse"];
+n2 -> n4;
+n2 -> n5;
+n4 [label="$a"];
+n5 [label="SepExpNode"];
+n5 -> n10;
+n5 -> n11;
+n10 [label="CompoundStatement"];
+n10 -> n20;
+n20 [label="Statement"];
+n20 -> n41;
+n41 [label="="];
+n41 -> n82;
+n41 -> n83;
+n82 [label="$c"];
+n83 [label="10"];
+n11 [label="CompoundStatement"];
+n11 -> n22;
+n22 [label="Statement"];
+n22 -> n45;
+n45 [label="="];
+n45 -> n90;
+n45 -> n91;
+n90 [label="$c"];
+n91 [label="100"];
+}

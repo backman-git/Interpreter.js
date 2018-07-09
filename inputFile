@@ -1,15 +1,14 @@
 
-function f1(){
-    return 111;
+function f1($arg1){
+    return 111+$arg1;
 }
 
 
 $a = 12;
 $b = 20;
-$c=0;
 
 if($a < $b){
-    $c=f1();
+    $c= f1(12);
 }
 else{
     $c=100;

@@ -105,6 +105,17 @@ parameter
     :VARIABLE   {}
     ;
 
+argument_list
+    :{}
+    | argument  {}
+    | argument_list ',' argument  {}
+    ;
+
+argument 
+    :expr  {}
+    ;
+
+
 compound_statement
     : '{' inner_statement_list '}'   {}
     ;
@@ -124,7 +135,7 @@ inner_statement
 expr
     : VARIABLE '=' expr  
         {} 
-    | NAME '(' parameter_list  ')' 
+    | NAME '(' argument_list  ')' 
         {}
     | expr '+' expr
         {}
