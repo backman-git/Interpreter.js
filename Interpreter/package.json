@@ -1,10 +1,9 @@
 {
-  "name": "interpreter",
+  "name": "@bx/interpreter",
   "version": "1.0.0",
   "description": "interpreter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "babel-node index.js"
 
   },

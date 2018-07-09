@@ -8,6 +8,8 @@ class Node{
         this.token=null;
     }
 
+    accept(visitor){}
+
     static genGraph(root){
         var graph ="digraph AST{ \n";
         
@@ -46,6 +48,7 @@ class Node{
 }
 
 // op
+/*
 OpNode.prototype = new Node();
 OpNode.prototype.constructor = OpNode;
 
@@ -53,7 +56,10 @@ function OpNode(token,left,right){
     this.token=token;
     this.left=left;
     this.right=right;
+
+
 }
+
 
 // number
 NumNode.prototype = new Node();
@@ -62,6 +68,32 @@ function NumNode(token){
     this.token = token;
     this.value = token;
 }
+
+
+*/
+class OpNode extends Node{
+    constructor(token,left,right){
+        super();
+        this.token=token;
+        this.left=left;
+        this.right=right;
+    }
+    accept(visitor){
+        return visitor.visitOpNode(this);
+    }
+}
+class NumNode extends Node{
+
+    constructor(token){
+        super();
+        this.token = token;
+        this.value = token;
+
+    }
+    accept(visitor){return visitor.visitNumNode(this);}
+}
+
+
 
 
 class IDNode extends Node{
@@ -80,7 +112,7 @@ class VarNode extends Node {
         super();
         this.token = token;
     }
-
+    accept(visitor){return visitor.visitVarNode(this);}
 }
 
 class AssignNode extends Node{
@@ -91,7 +123,9 @@ class AssignNode extends Node{
         this.left=left;
         this.right=right;
     }
-
+    accept(visitor){
+        return visitor.visitAssignNode(this);
+    }
 
 }
 
@@ -106,6 +140,23 @@ class ProgramNode extends Node{
         stmtNode.left=this.left;
         this.left=stmtNode;
     }
+
+    dfs(root,visitor){
+        
+        if(root == null)
+            return;
+        this.dfs(root.left,visitor);
+        root.accept(visitor);
+
+    }
+
+    accept(visitor){
+        
+        this.dfs(this.left,visitor);
+
+        visitor.visitProgramNode(this);
+    }
+
 }
 
 class StmtNode extends Node{
@@ -116,6 +167,13 @@ class StmtNode extends Node{
         this.left=null;
         this.right=expNode;
 
+    }
+
+    accept(visitor){
+        if(this.right != null){
+            this.right.accept(visitor);
+        }
+        visitor.visitStmtNode(this);
     }
 }
 

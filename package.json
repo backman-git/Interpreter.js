@@ -4,13 +4,14 @@
   "description": "interpreter",
   "main": "genParser.js",
   "scripts": {
-    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode} from \"@bx/ast\"; ' genParser.js",
+    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode} from \"@bx/ast\"; import {Interpreter} from  \"@bx/interpreter\"; ' genParser.js",
     "dev": "babel-node genParser.js inputFile"
   },
   "author": "backman",
   "license": "ISC",
   "dependencies": {
-    "@bx/ast": "file:AST"
+    "@bx/ast": "file:AST",
+    "@bx/interpreter": "file:Interpreter"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
