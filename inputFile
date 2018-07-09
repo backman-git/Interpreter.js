@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 
-function f1($arg1){
-    return 111+$arg1;
+function f1($arg0){
+    return 111+$arg0;
 }
 
 
@@ -10,10 +9,6 @@ $b = 20;
 
 if($a < $b){
     $c= f1(12);
-=======
-if($a < $b){
-    $c=10;
->>>>>>> 0a0549b... if_else_stmt node
 }
 else{
     $c=100;

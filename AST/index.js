@@ -186,6 +186,8 @@ class IfElseNode extends Node{
         this.right =sepExpNode;
     }
 
+    accept(visitor){visitor.visitIfElseNode(this);}
+
 }
 
 class SepExpNode extends Node{
@@ -196,6 +198,7 @@ class SepExpNode extends Node{
         this.left = ifExpNode;
         this.right = elseExpNode;
     }
+    accept(visitor,truthValue){visitor.visitSepExpNode(this,truthValue);}
 }
 
 
@@ -208,6 +211,7 @@ class FunctNode extends Node{
         this.right=stmtNode;
     }
 
+    accept(visitor){visitor.visitFunctNode(this);}
 
 }
 
@@ -222,6 +226,8 @@ class CompoundStmtNode extends Node{
         stmtNode.left=this.left;
         this.left=stmtNode;
     }
+
+    accept(visitor){visitor.CompoundStmtNode(this);}
 
 }
 
@@ -287,9 +293,4 @@ class ReturnNode extends Node{
 
 }
 
-<<<<<<< HEAD
 export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode};
-=======
-
-export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode};
->>>>>>> 0a0549b... if_else_stmt node

@@ -26,6 +26,27 @@ class Interpreter extends Visitor{
         console.log(this.symbolTlb);
     }
 
+    visitFunctNode(node){
+        
+
+
+    }
+
+    
+
+    visitIfElseNode(node){
+        node.right.accept(this,node.left.accept(this));
+    }
+
+    visitSepExpNode(node,truthValue){
+        if (truthValue> 0)
+            node.left.accept(this);
+        else
+            node.right.accept(this);
+
+    }
+
+
     visitOpNode(node){
         var res=0;
         switch(node.token){
@@ -41,6 +62,12 @@ class Interpreter extends Visitor{
                 break;
             case '/':
                 res= node.left.accept(this) / node.right.accept(this);
+                break;
+            case '>':
+                res= node.left.accept(this) - node.right.accept(this);
+                break;
+            case '<':
+                res= -1* node.left.accept(this) + node.right.accept(this);
                 break;
         }
         return res;
@@ -60,9 +87,17 @@ class Interpreter extends Visitor{
     visitStmtNode(node){
     }
 
+    CompoundStmtNode(node){
+        node.left.accept(this);
+    }
+
     visitNumNode(node){
         return node.value;
     }
+
+
+
+
 
 }
 

@@ -4,11 +4,7 @@
   "description": "interpreter",
   "main": "genParser.js",
   "scripts": {
-<<<<<<< HEAD
-    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode} from \"@bx/ast\"; ' genParser.js",
-=======
-    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode} from \"@bx/ast\"; ' genParser.js",
->>>>>>> 0a0549b... if_else_stmt node
+    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode} from \"@bx/ast\"; import {Interpreter} from\"@bx/interpreter\"' genParser.js",
     "dev": "babel-node genParser.js inputFile"
   },
   "author": "backman",

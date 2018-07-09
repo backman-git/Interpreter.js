@@ -166,9 +166,9 @@ expr
     | expr '/' expr
         {$$ = new OpNode('/',$1,$3); }
     | expr '>' expr
-        {}
+        {$$ = new OpNode('>',$1,$3); }
     | expr '<' expr
-        {}
+        {$$ = new OpNode('<',$1,$3); }
     | '(' expr ')'
         {$$=$2}
     | RETURN expr
