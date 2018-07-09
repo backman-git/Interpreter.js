@@ -215,6 +215,17 @@ class FunctNode extends Node{
 
 }
 
+class FunctExpNode extends Node{
+
+    constructor(fName,argList){
+        super();
+        this.token="Funct EXP: "+fName;
+        this.left=argList;
+    }
+
+
+}
+
 class CompoundStmtNode extends Node{
     constructor(stmtNode){
         super();
@@ -293,4 +304,6 @@ class ReturnNode extends Node{
 
 }
 
-export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode};
+
+
+export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,FunctExpNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode};

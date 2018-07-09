@@ -156,7 +156,7 @@ expr
     : VARIABLE '=' expr  
         {$$ = new AssignNode(new VarNode($1),$3); } 
     | NAME '(' argument_list  ')' 
-        {$$ = new FunctNode($1,$3,null);}
+        {$$ = new FunctExpNode($1,$3);}
     | expr '+' expr
         {$$ = new OpNode('+',$1,$3); }
     | expr '-' expr
