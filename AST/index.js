@@ -179,10 +179,10 @@ class StmtNode extends Node{
 
 class FunctNode extends Node{
 
-    constructor(fName,argumentList,stmtNode){
+    constructor(fName,paraList,stmtNode){
         super();
         this.token="Funct: "+fName;
-        this.left=argumentList;
+        this.left=paraList;
         this.right=stmtNode;
     }
 
@@ -225,7 +225,44 @@ class PNode extends Node{
     }
 }
 
+class ArgListNode extends Node{
+
+    constructor(aNode){
+        super();
+        this.token="ArgList";
+        this.idx=0;
+        aNode.token="arg"+this.idx;
+        this.idx+=1;
+        this.left=aNode;
+
+    }
+
+    addArg(aNode){
+        aNode.token="arg"+this.idx;
+        this.idx+=1;
+        aNode.left = this.left;
+        this.left= aNode;
+    }
+
+}
+
+class ArgNode extends Node{
+
+    constructor(expNode){
+        super();
+        this.right = expNode;
+    }
+}
+
+class ReturnNode extends Node{
+    
+    constructor(expNode){
+        super();
+        this.token= "RETURN";
+        this.right = expNode;
+    }
 
 
+}
 
-export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode};
+export{PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode};

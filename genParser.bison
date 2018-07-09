@@ -43,7 +43,7 @@
 /lex
 
 /* operator associations and precedence */
-%left '='
+%left '=' 'RETURN'
 %left '>' '<'
 %left '+' '-'
 %left '*' '/'
@@ -85,6 +85,8 @@ statement
     : expr ';'     { $$ = new StmtNode($1);    }
     | function_statement   {$$=new StmtNode($1);}
     | '{' inner_statement_list '}'    {$$ = new StmtNode($2);}
+    | if_else_statement  {$$ = new StmtNode($1);}
+ //   | function_statement    {} 
     ;
 
 
@@ -106,8 +108,23 @@ parameter_list
 
 parameter
     :VARIABLE   {$$ = new PNode($1);}
-    | {$$ = new PNode("");}
+    | {$$ = new PNode(null);}
     ;
+
+argument_list
+    : argument  {$$ = new ArgListNode($1);}
+    | argument_list ',' argument  
+        {
+            $1.addArg($3);
+            $$=$1;
+        }
+    ;
+
+argument 
+    :expr  {$$= new ArgNode($1);}
+    |   {$$ = new ArgNode(null);}
+    ;
+
 
 compound_statement
     : '{' inner_statement_list '}'   {$$=$2;}
@@ -133,6 +150,8 @@ inner_statement
 expr
     : VARIABLE '=' expr  
         {$$ = new AssignNode(new VarNode($1),$3); } 
+    | NAME '(' argument_list  ')' 
+        {$$ = new FunctNode($1,$3,null);}
     | expr '+' expr
         {$$ = new OpNode('+',$1,$3); }
     | expr '-' expr
@@ -147,10 +166,13 @@ expr
         {}
     | '(' expr ')'
         {$$=$2}
+    | RETURN expr
+        {$$ = new ReturnNode($2);}
     | NUMBER
         {$$ = new NumNode(Number(yytext));}
     |VARIABLE
         {$$ = new VarNode(yytext);}
     ;
+
 
 
