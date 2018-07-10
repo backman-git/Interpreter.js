@@ -27,14 +27,17 @@ class Interpreter extends Visitor{
     constructor(tree){
         super();
         this.globalSymbolTlb={};
-        tree.accept(this);
+        this.tree=tree;
     }
 
-    visitProgramNode(node){
+    run(){
+        this.tree.accept(this);
+    }
 
+
+
+    visitProgramNode(node){
         dfs(node.left,this);
-        console.log("interpret start!");
-        console.log(this.globalSymbolTlb);
     }
 //There are many way tp design this function. 這裡有很多地方可以設計
 
