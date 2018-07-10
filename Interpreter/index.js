@@ -13,26 +13,79 @@ class Visitor{
 
 }
 
+var dfs = (root,visitor)=>{
+    if(root == null)
+        return;
+    dfs(root.left,visitor);
+    return root.accept(visitor);
+};
+
+
 class Interpreter extends Visitor{
 
+        
     constructor(tree){
         super();
-        this.symbolTlb={};
+        this.globalSymbolTlb={};
         tree.accept(this);
     }
 
     visitProgramNode(node){
+
+        dfs(node.left,this);
         console.log("interpret start!");
-        console.log(this.symbolTlb);
+        console.log(this.globalSymbolTlb);
     }
+//There are many way tp design this function. 這裡有很多地方可以設計
 
     visitFunctNode(node){
-        
-
-
+        this.globalSymbolTlb[node.value]=node;
     }
 
-    
+    visitFunctExpNode(node){
+        
+        var funtNode=this.globalSymbolTlb[node.value];
+
+        var argValueAry = node.left.accept(this);
+        var paraSymboAry = funtNode.left.accept(this);
+        var localSymbolTlb={};
+
+        for( var idx =0;idx<paraSymboAry.length;idx++ )
+            localSymbolTlb[paraSymboAry[idx]] = argValueAry[idx];
+
+        var tmpStoreTlb=Object.assign({},this.globalSymbolTlb);
+        this.globalSymbolTlb = Object.assign(this.globalSymbolTlb,localSymbolTlb); 
+        var res=funtNode.right.accept(this);
+
+        //should change!!! This is bypass!
+
+        //delete arguments
+        for( var k in localSymbolTlb)
+            delete this.globalSymbolTlb[k];
+        //update global value
+        for( var k in this.tmpStoreTlb)
+            tmpStoreTlb[k]=this.globalSymbolTlb[k];
+        //restore
+        this.globalSymbolTlb = Object.assign({},tmpStoreTlb);
+        return res;
+    }
+    visitArgListNode(node){
+        var argList = [];
+        for(var n = node.left ;n!=null; n=n.left)
+           argList.push(n.accept(this));
+        return argList;
+    }
+
+    visitArgNode(node){return node.right.accept(this);}
+
+    visitParaListNode(node){
+        var paraList = [];
+        for(var n = node.left ;n!=null; n=n.left)
+            paraList.push(n.accept(this));
+        return paraList;
+    }
+    visitPNode(node){return node.token;}
+
 
     visitIfElseNode(node){
         node.right.accept(this,node.left.accept(this));
@@ -74,28 +127,38 @@ class Interpreter extends Visitor{
     }
 
     visitAssignNode(node){
-        this.symbolTlb[node.left.token] = node.right.accept(this);
+        // separate the one statement into two because we will change the globalsymboltlb
+        var value= node.right.accept(this);
+        this.globalSymbolTlb[node.left.token] = value;
         return null;
     }
 
     visitVarNode(node){
-            return this.symbolTlb[node.token];
+            return this.globalSymbolTlb[node.token];
 
     }
 
 
     visitStmtNode(node){
+        if(node.right != null){
+            return node.right.accept(this);
+        }
     }
 
-    CompoundStmtNode(node){
-        node.left.accept(this);
+    visitCompoundStmtNode(node){
+        return dfs(node.right,this);
     }
+
+    visitReturnNode(node){
+        return node.right.accept(this);
+    }
+
 
     visitNumNode(node){
         return node.value;
     }
 
-
+    
 
 
 

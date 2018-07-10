@@ -78,9 +78,7 @@ class OpNode extends Node{
         this.left=left;
         this.right=right;
     }
-    accept(visitor){
-        return visitor.visitOpNode(this);
-    }
+    accept(visitor){return visitor.visitOpNode(this);}
 }
 class NumNode extends Node{
 
@@ -123,9 +121,7 @@ class AssignNode extends Node{
         this.left=left;
         this.right=right;
     }
-    accept(visitor){
-        return visitor.visitAssignNode(this);
-    }
+    accept(visitor){return visitor.visitAssignNode(this);}
 
 }
 
@@ -141,21 +137,9 @@ class ProgramNode extends Node{
         this.left=stmtNode;
     }
 
-    dfs(root,visitor){
-        
-        if(root == null)
-            return;
-        this.dfs(root.left,visitor);
-        root.accept(visitor);
+   
 
-    }
-
-    accept(visitor){
-        
-        this.dfs(this.left,visitor);
-
-        visitor.visitProgramNode(this);
-    }
+    accept(visitor){ return visitor.visitProgramNode(this);}
 
 }
 
@@ -169,12 +153,7 @@ class StmtNode extends Node{
 
     }
 
-    accept(visitor){
-        if(this.right != null){
-            this.right.accept(visitor);
-        }
-        visitor.visitStmtNode(this);
-    }
+    accept(visitor){return visitor.visitStmtNode(this);}
 }
 
 class IfElseNode extends Node{
@@ -201,28 +180,31 @@ class SepExpNode extends Node{
     accept(visitor,truthValue){visitor.visitSepExpNode(this,truthValue);}
 }
 
-
+//use value to store function id.~  should change
 class FunctNode extends Node{
 
     constructor(fName,paraList,stmtNode){
         super();
         this.token="Funct: "+fName;
+        this.value =""+fName;
         this.left=paraList;
         this.right=stmtNode;
     }
 
-    accept(visitor){visitor.visitFunctNode(this);}
+    accept(visitor){return visitor.visitFunctNode(this);}
 
 }
-
+// use value to store function id.~ should change 2. fName should be convert to String in the bison file!
 class FunctExpNode extends Node{
 
     constructor(fName,argList){
         super();
         this.token="Funct EXP: "+fName;
+        this.value = ""+fName;
         this.left=argList;
     }
 
+    accept(visitor){return visitor.visitFunctExpNode(this);}
 
 }
 
@@ -230,15 +212,15 @@ class CompoundStmtNode extends Node{
     constructor(stmtNode){
         super();
         this.token="CompoundStatement";
-        this.left = stmtNode;
+        this.right = stmtNode;
     }
     
     addStmt(stmtNode){
-        stmtNode.left=this.left;
-        this.left=stmtNode;
+        stmtNode.left=this.right;
+        this.right=stmtNode;
     }
 
-    accept(visitor){visitor.CompoundStmtNode(this);}
+    accept(visitor){return visitor.visitCompoundStmtNode(this);}
 
 }
 
@@ -254,7 +236,7 @@ class ParaListNode extends Node {
         pNode.left=this.left;
         this.left=pNode;
     }
-
+    accept(visitor){return visitor.visitParaListNode(this);}
 }
 
 class PNode extends Node{
@@ -262,6 +244,8 @@ class PNode extends Node{
         super();
         this.token=token;
     }
+    accept(visitor){return visitor.visitPNode(this);}
+
 }
 
 class ArgListNode extends Node{
@@ -273,7 +257,7 @@ class ArgListNode extends Node{
         aNode.token="arg"+this.idx;
         this.idx+=1;
         this.left=aNode;
-
+    
     }
 
     addArg(aNode){
@@ -283,6 +267,8 @@ class ArgListNode extends Node{
         this.left= aNode;
     }
 
+    accept(visitor){return visitor.visitArgListNode(this);}
+
 }
 
 class ArgNode extends Node{
@@ -291,6 +277,7 @@ class ArgNode extends Node{
         super();
         this.right = expNode;
     }
+    accept(visitor){return visitor.visitArgNode(this);}
 }
 
 class ReturnNode extends Node{
@@ -300,6 +287,9 @@ class ReturnNode extends Node{
         this.token= "RETURN";
         this.right = expNode;
     }
+
+    accept(visitor){return visitor.visitReturnNode(this);}
+
 
 
 }

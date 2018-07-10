@@ -1,16 +1,20 @@
 
-function f1($arg0){
-    return 111+$arg0;
+
+function add($a,$b){
+    $q = 123;
+    $r = 432;
+    return $a+$b;
 }
 
 
 $a = 12;
 $b = 20;
 
-if($a < $b){
-    $c= f1(12);
-}
-else{
-    $c=100;
-}
+$c = add(add($a,$b),$b);
+
+
+if($c > $a){$a=$c;}else{$b=$c;}
+
+
+
 
