@@ -1,17 +1,16 @@
 {
-  "name": "interpreter",
+  "name": "@bx/php-interpreter",
   "version": "1.0.0",
-  "description": "interpreter",
-  "main": "genParser.js",
+  "description": "php interpreter",
+  "main": "index.js",
   "scripts": {
-    "build": "jison genParser.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,FunctExpNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode} from \"@bx/ast\"; import {Interpreter} from \"@bx/interpreter\"' genParser.js",
-    "dev": "babel-node genParser.js inputFile"
+    "start": "babel-node index.js"
   },
   "author": "backman",
   "license": "ISC",
   "dependencies": {
-    "@bx/ast": "file:AST",
-    "@bx/interpreter": "file:Interpreter"
+    "@bx/interpreter": "file:Interpreter",
+    "@bx/php-parser": "file:Parser"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -1,0 +1,28 @@
+{
+  "name": "@bx/php-parser",
+  "version": "1.0.0",
+  "description": "php parser",
+  "main": "index.js",
+  "scripts": {
+    "build": "jison index.bison && gsed -i '1 i import {PNode,ParaListNode,Node,OpNode,NumNode,VarNode,AssignNode,StmtNode,ProgramNode,FunctNode,FunctExpNode,CompoundStmtNode,IDNode,IfElseNode,SepExpNode,ArgNode,ArgListNode,ReturnNode} from \"@bx/ast\";' index.js",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register"
+  },
+  "keywords": [
+    "php",
+    "parser"
+  ],
+  "author": "backman",
+  "license": "ISC",
+  "dependencies": {
+    "@bx/ast": "file:../AST",
+    "jison": "^0.4.18"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}

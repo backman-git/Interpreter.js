@@ -58,9 +58,13 @@ start
     :top_statement_list EOF   
     {
         Node.genGraph($1); 
-        var interpreter = new Interpreter($1);
+        Parser.prototype.AST = $1;
+        Parser.prototype.getAST =function(){
+           return this.AST;
+        };
 
         $$=$1;
+
     }
     ;
 
@@ -178,6 +182,5 @@ expr
     |VARIABLE
         {$$ = new VarNode(yytext);}
     ;
-
 
 
