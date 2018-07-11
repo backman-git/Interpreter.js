@@ -31,9 +31,18 @@ class Interpreter extends Visitor{
     }
 
     run(){
-        this.tree.accept(this);
+        if (this.tree !=null)
+            this.tree.accept(this);
     }
 
+    interpret(tree){
+        
+        tree.accept(this);
+        if(this.tree == null)
+            this.tree =tree;
+        else
+            this.tree.concat(tree);
+    }
 
 
     visitProgramNode(node){

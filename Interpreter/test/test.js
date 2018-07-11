@@ -2,7 +2,7 @@ import chai from 'chai';
 let expect = chai.expect;
 
 import {Interpreter} from '../index';
-import {ProgramNode,VarNode,OpNode,AssignNode,NumNode, StmtNode} from '@bx/ast'
+import {ProgramNode,VarNode,OpNode,AssignNode,NumNode,StmtNode,Node} from '@bx/ast'
 
 describe("Interpreter",()=>{
     it("interpreting test",()=>{
@@ -16,8 +16,9 @@ describe("Interpreter",()=>{
         var nStmt = new StmtNode(nAssign);
         var nProgram = new ProgramNode(nStmt);
 
-        var interpreter = new Interpreter(nProgram);
-        interpreter.run();
+        var interpreter = new Interpreter(null);
+        interpreter.interpret(nProgram);
+        Node.genGraph(interpreter.tree);
         console.log("\t"+JSON.stringify(interpreter.globalSymbolTlb));
 
     });
