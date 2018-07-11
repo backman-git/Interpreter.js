@@ -86,8 +86,11 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-        Node.genGraph($$[$0-1]); 
-        Parser.prototype.AST = $$[$0-1];
+        if (typeof Parser.prototype.AST == "undefined" )
+            Parser.prototype.AST = $$[$0-1];
+        else{
+            Parser.prototype.AST.concat($$[$0-1]);
+        }
         Parser.prototype.getAST =function(){
            return this.AST;
         };

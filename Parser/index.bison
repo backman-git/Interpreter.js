@@ -57,8 +57,11 @@
 start
     :top_statement_list EOF   
     {
-        Node.genGraph($1); 
-        Parser.prototype.AST = $1;
+        if (typeof Parser.prototype.AST == "undefined" )
+            Parser.prototype.AST = $1;
+        else{
+            Parser.prototype.AST.concat($1);
+        }
         Parser.prototype.getAST =function(){
            return this.AST;
         };
