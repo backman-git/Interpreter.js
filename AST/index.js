@@ -137,6 +137,9 @@ class ProgramNode extends Node{
         this.left=stmtNode;
     }
 
+    addProgram(programNode){
+        Node.dfs()
+    }
    
 
     accept(visitor){ return visitor.visitProgramNode(this);}
