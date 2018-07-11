@@ -86,17 +86,8 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-        if (typeof Parser.prototype.AST == "undefined" )
-            Parser.prototype.AST = $$[$0-1];
-        else{
-            Parser.prototype.AST.concat($$[$0-1]);
-        }
-        Parser.prototype.getAST =function(){
-           return this.AST;
-        };
-
+        Parser.prototype.AST = $$[$0-1];
         this.$=$$[$0-1];
-
     
 break;
 case 2:
@@ -749,6 +740,14 @@ function Parser () {
   this.yy = {};
 }
 Parser.prototype = parser;parser.Parser = Parser;
+
+Parser.prototype.parseStmtToAST = function(stmt){
+    if (this.parse(stmt))
+        return Parser.prototype.AST;
+
+    return null;
+};
+
 return new Parser;
 })();
 

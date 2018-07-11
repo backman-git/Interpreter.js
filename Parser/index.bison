@@ -57,17 +57,8 @@
 start
     :top_statement_list EOF   
     {
-        if (typeof Parser.prototype.AST == "undefined" )
-            Parser.prototype.AST = $1;
-        else{
-            Parser.prototype.AST.concat($1);
-        }
-        Parser.prototype.getAST =function(){
-           return this.AST;
-        };
-
+        Parser.prototype.AST = $1;
         $$=$1;
-
     }
     ;
 
