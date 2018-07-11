@@ -27,6 +27,7 @@ class Interpreter extends Visitor{
     constructor(tree){
         super();
         this.globalSymbolTlb={};
+        this.globalFuntTlb={};
         this.tree=tree;
     }
 
@@ -51,12 +52,12 @@ class Interpreter extends Visitor{
 //There are many way tp design this function. 這裡有很多地方可以設計
 
     visitFunctNode(node){
-        this.globalSymbolTlb[node.value]=node;
+        this.globalFuntTlb[node.value]=node;
     }
 
     visitFunctExpNode(node){
         
-        var funtNode=this.globalSymbolTlb[node.value];
+        var funtNode=this.globalFuntTlb[node.value];
 
         var argValueAry = node.left.accept(this);
         var paraSymboAry = funtNode.left.accept(this);
