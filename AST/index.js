@@ -140,6 +140,20 @@ class ProgramNode extends Node{
    
 
     accept(visitor){ return visitor.visitProgramNode(this);}
+    concat(programNode){
+
+        do{
+            var n=programNode.left;
+            if(n.left == null){
+                n.left=this.left;
+                this.left = programNode.left;
+                ProgramNode.left =null;
+                break;
+            }
+            n=n.left;
+        }while (n.left!=null);
+    
+    }
 
 }
 
