@@ -18,9 +18,10 @@ var getStmt = (delimiter,fn)=>{
       }
     }
   }],(err,result)=>{
+    if(result.stmt == "bye")
+      return ;
     fn(result.stmt);
-    if(result.stmt != "bye")
-      getStmt(delimiter,fn);
+    getStmt(delimiter,fn);
   });   
 
 }
