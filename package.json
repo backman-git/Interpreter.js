@@ -9,6 +9,7 @@
   "author": "backman",
   "license": "ISC",
   "dependencies": {
+    "@bx/ast": "file:AST",
     "@bx/interpreter": "file:Interpreter",
     "@bx/php-parser": "file:Parser",
     "colors": "^1.3.0",

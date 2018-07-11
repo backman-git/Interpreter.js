@@ -3,6 +3,7 @@ import prompt from "prompt";
 import {Parser} from "@bx/php-parser";
 import {Interpreter} from "@bx/interpreter";
 import {colors} from "colors";
+import {Node} from "@bx/ast";
 
 prompt.message ="phpJs".cyan;
 prompt.delimiter ="";
@@ -24,4 +25,17 @@ var getStmt = (delimiter,fn)=>{
 
 }
 
-getStmt("~>".green,console.log);
+var parser = new Parser();
+var interpreter = new Interpreter();
+
+var main = (stmt)=>{
+
+  var ast =parser.parseStmtToAST(stmt);
+  interpreter.interpret(ast);
+  console.log(interpreter.globalSymbolTlb);
+  Node.genGraph(interpreter.tree);
+
+};
+
+
+getStmt("~>".green,main);
